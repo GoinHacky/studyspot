@@ -9,6 +9,7 @@ import { enableScreens } from 'react-native-screens';
 // Enable screens for better performance
 enableScreens();
 
+import LoadingScreen from './screens/LoadingScreen';
 import LandingScreen from './screens/LandingScreen';
 import LoginScreen from './screens/LoginScreen';
 import SignUpScreen from './screens/SignUpScreen';
@@ -26,11 +27,12 @@ export default function App() {
             <NavigationContainer>
                 <StatusBar style="dark" />
                 <Stack.Navigator
-                    initialRouteName="Landing"
+                    initialRouteName="Loading"
                     screenOptions={{
                         headerShown: false,
                     }}
                 >
+                    <Stack.Screen name="Loading" component={LoadingScreen} />
                     <Stack.Screen name="Landing" component={LandingScreen} />
                     <Stack.Screen name="Login" component={LoginScreen} />
                     <Stack.Screen name="SignUp" component={SignUpScreen} />
