@@ -2,52 +2,125 @@
 
 A static mobile application built with React Native and Expo for finding and booking spaces (cafes, coworking spaces, etc.).
 
-## Features
+![StudySpotter](https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=800&h=400&fit=crop)
 
-- **Landing Screen**: Welcome screen with "FIND. BOOK. FOCUS." tagline
-- **Login Screen**: User authentication with social login options
-- **Sign Up Screen**: User registration with profile picture upload
-- **Home Screen**: Main dashboard with search, categories, and top spaces
-- **Side Menu**: Drawer navigation with user profile and settings
+## ✨ Features
 
-## Getting Started
+### 👤 **User Features**
+- **🔐 Authentication System** - Login/Signup with beautiful UI
+- **🏠 Home Dashboard** - Overview of popular spaces and categories
+- **🔍 Discovery Screen** - Browse cafes with social interactions (likes, comments, bookmarks)
+- **⭐ Favorites System** - Save and manage starred locations
+- **📅 Smart Booking** - Complete reservation system with date/time selection
+- **👤 Profile Management** - Editable user profiles with photo upload
+- **⚙️ Settings Panel** - Comprehensive preferences and account settings
+- **🎨 Beautiful UI** - Modern design with real images from Unsplash
+
+### 👨‍💼 **Admin Features**
+- **📊 Admin Dashboard** - Statistics overview and recent bookings
+- **📋 Booking Management** - Filter, search, and manage all reservations
+- **✅ Status Control** - Approve, cancel, or modify bookings
+- **📈 Analytics** - Track bookings, revenue, and user engagement
+
+## 🚀 Getting Started
 
 ### Prerequisites
-
 - Node.js (v14 or higher)
 - npm or yarn
-- Expo CLI (install globally: `npm install -g expo-cli`)
+- Expo CLI
+- React Native development environment
 
 ### Installation
 
-1. Install dependencies:
-```bash
-npm install
-```
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/GoinHacky/studyspot.git
+   cd studyspot
+   ```
 
-2. Start the development server:
-```bash
-npm start
-```
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-3. Run on your device:
-   - Scan the QR code with Expo Go app (iOS/Android)
-   - Or press `i` for iOS simulator
-   - Or press `a` for Android emulator
+3. **Start the development server:**
+   ```bash
+   npm start
+   ```
 
-## Project Structure
+4. **Run on your device:**
+   - Install Expo Go app on your phone
+   - Scan the QR code from the terminal
+   - Or run on emulator: `npm run android` / `npm run ios`
+
+## 🛠️ Tech Stack
+
+- **Framework:** React Native with Expo
+- **Navigation:** React Navigation v6
+- **Icons:** Expo Vector Icons
+- **Images:** Unsplash API integration
+- **Styling:** StyleSheet with modern design patterns
+- **State Management:** React Hooks (useState, useEffect)
+
+## 📱 Screens Overview
+
+### **User Screens**
+- **LandingScreen** - Welcome screen with hero image
+- **LoginScreen** - User authentication
+- **SignUpScreen** - User registration
+- **HomeScreen** - Main dashboard with categories
+- **DiscoveryScreen** - Browse and discover cafes
+- **StarredScreen** - Favorite locations grid
+- **BookingScreen** - Complete reservation system
+- **ProfileScreen** - User profile management
+- **SettingScreen** - App preferences and settings
+
+### **Admin Screens**
+- **AdminDashboardScreen** - Statistics and overview
+- **AdminBookingsScreen** - Booking management system
+
+### **Navigation**
+- **MainTabScreen** - Bottom tab navigation container
+- **DrawerMenu** - Side navigation drawer
+- **BottomNavigation** - Custom bottom navigation component
+
+## 🎨 Design Features
+
+- **Modern UI/UX** - Clean, intuitive interface design
+- **Real Images** - Beautiful cafe and workspace photos
+- **Responsive Design** - Works on all screen sizes
+- **Professional Styling** - Shadows, gradients, and animations
+- **Consistent Branding** - Cohesive color scheme and typography
+
+## 📂 Project Structure
 
 ```
 StudySpotter/
-├── App.js                 # Main app entry point with navigation
-├── screens/               # All screen components
-│   ├── LandingScreen.js   # Welcome/landing screen
-│   ├── LoginScreen.js     # Login screen
-│   ├── SignUpScreen.js    # Sign up screen
-│   ├── HomeScreen.js      # Main home screen
-│   └── DrawerMenu.js      # Side drawer menu
-├── constants/             # App constants
-│   ├── Colors.js          # Color palette
+├── screens/              # All application screens
+│   ├── LandingScreen.js
+│   ├── LoginScreen.js
+│   ├── SignUpScreen.js
+│   ├── HomeScreen.js
+│   ├── DiscoveryScreen.js
+│   ├── StarredScreen.js
+│   ├── BookingScreen.js
+│   ├── ProfileScreen.js
+│   ├── SettingScreen.js
+│   ├── AdminDashboardScreen.js
+│   ├── AdminBookingsScreen.js
+│   ├── MainTabScreen.js
+│   └── DrawerMenu.js
+├── components/           # Reusable components
+│   ├── BottomNavigation.js
+│   └── ImageExample.js
+├── constants/            # App constants
+│   ├── Colors.js
+│   └── Styles.js
+├── assets/              # Images and icons
+│   ├── images/
+│   ├── icon.png
+│   └── splash.png
+└── App.js              # Main app entry point
 │   └── Styles.js          # Common styles
 └── package.json           # Dependencies
 ```
