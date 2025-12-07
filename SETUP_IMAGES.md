@@ -2,21 +2,27 @@
 
 This guide explains how to add the custom logo and loading screen images to your StudySpotter app.
 
-## 📁 Required Images
+## 🚨 **Current Status**
+The app is currently running with **styled text placeholders** instead of images to avoid bundling errors. The loading screen shows:
+- **SPACESPOTTER** text with location pin emoji 📍
+- **People and laptop emojis** 👥💻 with "FIND. BOOK. FOCUS." text
+- **Professional styling** that matches your brand
 
-You need to add two images to the `assets/` folder:
+## 📁 Optional: Adding Real Images
+
+If you want to replace the text placeholders with actual images:
 
 ### 1. **Logo Image** (`logo.png`)
 - **File:** The SpaceSpotter logo with location pin
 - **Location:** `assets/logo.png`
-- **Usage:** App icon, loading screen logo
-- **Recommended size:** 1024x1024px (will be automatically resized)
+- **Usage:** Loading screen logo (after code update)
+- **Recommended size:** 1024x1024px (PNG format)
 
 ### 2. **Loading Illustration** (`loading-illustration.png`)
 - **File:** The "FIND. BOOK. FOCUS." illustration with people
 - **Location:** `assets/loading-illustration.png`
-- **Usage:** Loading screen illustration, splash screen
-- **Recommended size:** 800x600px
+- **Usage:** Loading screen illustration (after code update)
+- **Recommended size:** 800x600px (PNG format)
 
 ## 🔧 How to Add the Images
 

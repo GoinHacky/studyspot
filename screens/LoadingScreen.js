@@ -30,20 +30,23 @@ const LoadingScreen = ({ navigation }) => {
       <View style={styles.content}>
         {/* Logo */}
         <View style={styles.logoContainer}>
-          <Image 
-            source={require('../assets/logo.png')}
-            style={styles.logo}
-            resizeMode="contain"
-          />
+          <View style={styles.logoPlaceholder}>
+            <Text style={styles.logoText}>SPACESPOTTER</Text>
+            <View style={styles.locationPin}>
+              <Text style={styles.pinText}>📍</Text>
+            </View>
+          </View>
         </View>
         
         {/* Loading Illustration */}
         <View style={styles.illustrationContainer}>
-          <Image 
-            source={require('../assets/loading-illustration.png')}
-            style={styles.illustration}
-            resizeMode="contain"
-          />
+          <View style={styles.illustrationPlaceholder}>
+            <View style={styles.peopleGroup}>
+              <Text style={styles.personEmoji}>👥</Text>
+              <Text style={styles.laptopEmoji}>💻</Text>
+            </View>
+            <Text style={styles.focusText}>FIND. BOOK. FOCUS.</Text>
+          </View>
         </View>
         
         {/* Tagline */}
@@ -86,17 +89,58 @@ const styles = StyleSheet.create({
     marginBottom: 40,
     alignItems: 'center',
   },
-  logo: {
-    width: 200,
-    height: 80,
+  logoPlaceholder: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+  },
+  logoText: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: Colors.primary,
+    letterSpacing: 2,
+  },
+  locationPin: {
+    marginTop: 8,
+  },
+  pinText: {
+    fontSize: 32,
   },
   illustrationContainer: {
     marginBottom: 40,
     alignItems: 'center',
   },
-  illustration: {
-    width: 300,
-    height: 200,
+  illustrationPlaceholder: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+    backgroundColor: 'white',
+    borderRadius: 16,
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    minWidth: 280,
+    minHeight: 160,
+  },
+  peopleGroup: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  personEmoji: {
+    fontSize: 48,
+    marginRight: 16,
+  },
+  laptopEmoji: {
+    fontSize: 48,
+  },
+  focusText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: Colors.primary,
+    letterSpacing: 1,
   },
   taglineContainer: {
     marginBottom: 40,
