@@ -19,18 +19,6 @@ const SignUpScreen = ({ navigation }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  // Guarded navigation handler for the Log in link to avoid runtime errors
-  const handleNavigateToLogin = () => {
-    if (navigation && typeof navigation.navigate === 'function') {
-      navigation.navigate('Login');
-    } else {
-      // Fallback: log a helpful warning for debugging in development
-      // (This prevents the app from crashing if navigation is undefined)
-      // eslint-disable-next-line no-console
-      console.warn('SignUpScreen: navigation prop is not available.');
-    }
-  };
-
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
       {/* Logo */}
@@ -161,7 +149,7 @@ const SignUpScreen = ({ navigation }) => {
       {/* Log In Link */}
       <View style={styles.logInContainer}>
         <Text style={styles.logInText}>Already have an account? </Text>
-        <TouchableOpacity onPress={handleNavigateToLogin} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }} accessibilityRole="button">
+        <TouchableOpacity onPress={() => navigation.navigate('Login')}>
           <Text style={styles.logInLink}>Log in</Text>
         </TouchableOpacity>
       </View>

@@ -6,153 +6,294 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
-  Dimensions,
   Image,
 } from 'react-native';
 import { Colors } from '../constants/Colors';
 import { Ionicons } from '@expo/vector-icons';
 
-const { width } = Dimensions.get('window');
-
 const HomeScreen = ({ navigation }) => {
   return (
-    <View style={styles.wrapper}>
-      <ScrollView contentContainerStyle={styles.container}>
-        <View style={styles.topRow}>
-          <TouchableOpacity
-            onPress={() => {
-              if (navigation && typeof navigation.openDrawer === 'function') {
-                navigation.openDrawer();
-              }
-            }}
-            style={styles.iconButton}
-            accessibilityRole="button"
-          >
-            <Ionicons name="menu" size={26} color={Colors.black} />
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.iconButtonRight}>
-            <Ionicons name="sparkles" size={22} color={Colors.primary} />
-          </TouchableOpacity>
+    <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+      {/* Top Section */}
+      <View style={styles.topSection}>
+        <TouchableOpacity
+          onPress={() => {
+            if (navigation && typeof navigation.openDrawer === 'function') {
+              navigation.openDrawer();
+            }
+          }}
+          style={styles.menuButton}
+        >
+          <Ionicons name="menu" size={28} color={Colors.black} />
+        </TouchableOpacity>
+        <View style={styles.greetingContainer}>
+          <Text style={styles.greeting}>Hi Francine!</Text>
+          <Text style={styles.welcomeText}>Welcome to your SpaceSpotter Home</Text>
         </View>
+        <View style={styles.starIcon}>
+          <Ionicons name="star" size={24} color={Colors.primary} />
+        </View>
+      </View>
 
-        <Text style={styles.greeting}>Hi Francine!</Text>
-        <Text style={styles.sub}>Welcome to SpaceSpotter</Text>
-
-        <View style={styles.searchWrapper}>
+      {/* Spot Spaces Section */}
+      <View style={styles.section}>
+        <View style={styles.sectionHeader}>
+          <Ionicons name="sparkles" size={20} color={Colors.black} />
+          <Text style={styles.sectionTitle}>Spot Spaces</Text>
+        </View>
+        <View style={styles.searchContainer}>
           <View style={styles.searchBar}>
-            <Ionicons name="search" size={18} color={Colors.textSecondary} style={{ marginRight: 8 }} />
-            <TextInput placeholder="Search something..." placeholderTextColor={Colors.placeholder} style={styles.searchInput} />
+            <Ionicons name="search" size={20} color={Colors.textSecondary} style={styles.searchIcon} />
+            <TextInput
+              style={styles.searchInput}
+              placeholder="Search spaces..."
+              placeholderTextColor={Colors.placeholder}
+            />
           </View>
-          <TouchableOpacity style={styles.filterButton}>
-            <Ionicons name="options" size={18} color={Colors.primary} />
+          <TouchableOpacity style={styles.searchButton}>
+            <Text style={styles.searchButtonText}>Search</Text>
           </TouchableOpacity>
         </View>
+      </View>
 
-        <View style={styles.categoriesRow}>
-          <View style={[styles.card, styles.cardLarge]}>
-            <Image 
-              source={{ uri: 'https://images.unsplash.com/photo-1559925393-8be0ec4767c8?w=200&h=200&fit=crop&overlay=dark' }}
-              style={styles.categoryImage}
-              resizeMode="cover"
-            />
-            <View style={styles.categoryOverlay}>
-              <Text style={styles.cardTitle}>Cafés</Text>
-            </View>
-          </View>
-          <View style={[styles.card, styles.cardLarge]}>
-            <Image 
-              source={{ uri: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=200&h=200&fit=crop&overlay=dark' }}
-              style={styles.categoryImage}
-              resizeMode="cover"
-            />
-            <View style={styles.categoryOverlay}>
-              <Text style={styles.cardTitle}>Coworking Spaces</Text>
-            </View>
-          </View>
-        </View>
-
-        <Text style={styles.sectionTitle}>Most Search</Text>
-        <View style={styles.tagsRow}>
-          {['Popular','Affordable','Group Seats','Free Wifi','With Sockets','Near Me'].map((t) => (
-            <View key={t} style={styles.tag}>
-              <Text style={styles.tagText}>{t}</Text>
-            </View>
-          ))}
-        </View>
-
-        <Text style={[styles.sectionTitle, { marginTop: 8 }]}>Top Spaces of the Week</Text>
-        <View style={styles.grid}>
-          {[
-            { name: 'Red\'s Café', image: 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=200&h=200&fit=crop' },
-            { name: 'Misfits Coffee', image: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=200&h=200&fit=crop' },
-            { name: 'Huddle Coworking', image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=200&h=200&fit=crop' },
-            { name: 'Nimo Brew Café', image: 'https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=200&h=200&fit=crop' }
-          ].map((space, i) => (
-            <View key={i} style={styles.spaceCard}>
-              <Image 
-                source={{ uri: space.image }}
-                style={styles.spaceImage}
+      {/* Categories Section */}
+      <View style={styles.section}>
+        <View style={styles.categoriesContainer}>
+          <TouchableOpacity style={styles.categoryCard}>
+            <View style={styles.categoryImage}>
+              <Image
+                source={{ uri: 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=800&h=600&fit=crop' }}
+                style={styles.categoryPhoto}
                 resizeMode="cover"
               />
-              <Text style={styles.spaceName}>{space.name}</Text>
+              <View style={styles.categoryOverlay} />
+              <Text style={styles.categoryText}>Cafés</Text>
             </View>
-          ))}
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.categoryCard}>
+            <View style={styles.categoryImage}>
+              <Image
+                source={{ uri: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=800&h=600&fit=crop' }}
+                style={styles.categoryPhoto}
+                resizeMode="cover"
+              />
+              <View style={styles.categoryOverlay} />
+              <Text style={styles.categoryText}>Coworking Space</Text>
+            </View>
+          </TouchableOpacity>
         </View>
+      </View>
 
-        <View style={{ height: 90 }} />
-      </ScrollView>
-    </View>
+      {/* Top Spaces Section */}
+      <View style={styles.section}>
+        <View style={styles.sectionHeader}>
+          <Ionicons name="sparkles" size={20} color={Colors.black} />
+          <Text style={styles.sectionTitle}>Top Spaces of the Week</Text>
+        </View>
+        <View style={styles.topSpacesContainer}>
+          <View style={styles.spaceCard}>
+            <View style={[styles.spaceImage, styles.spaceImage1]}>
+              <Image
+                source={{ uri: 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=300&h=300&fit=crop' }}
+                style={styles.spacePhoto}
+                resizeMode="cover"
+              />
+              <View style={styles.spaceOverlay} />
+            </View>
+            <Text style={styles.spaceName}>Red's Café</Text>
+          </View>
+          <View style={styles.spaceCard}>
+            <View style={[styles.spaceImage, styles.spaceImage2]}>
+              <Image
+                source={{ uri: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=300&h=300&fit=crop' }}
+                style={styles.spacePhoto}
+                resizeMode="cover"
+              />
+              <View style={styles.spaceOverlay} />
+            </View>
+            <Text style={styles.spaceName}>Misfits Coffee</Text>
+          </View>
+          <View style={styles.spaceCard}>
+            <View style={[styles.spaceImage, styles.spaceImage3]}>
+              <Image
+                source={{ uri: 'https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=300&h=300&fit=crop' }}
+                style={styles.spacePhoto}
+                resizeMode="cover"
+              />
+              <View style={styles.spaceOverlay} />
+            </View>
+            <Text style={styles.spaceName}>Huddle Coworking!</Text>
+          </View>
+        </View>
+      </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  wrapper: { flex: 1, backgroundColor: Colors.background },
-  container: { paddingHorizontal: 16, paddingTop: 40, paddingBottom: 20 },
-  topRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 },
-  iconButton: { padding: 8 },
-  iconButtonRight: { padding: 8 },
-  greeting: { fontSize: 26, fontWeight: '700', color: Colors.primary, marginTop: 6 },
-  sub: { color: Colors.textSecondary, marginBottom: 16 },
-  searchWrapper: { flexDirection: 'row', alignItems: 'center', marginBottom: 18 },
-  searchBar: { flex: 1, backgroundColor: '#F0E8E2', borderRadius: 20, paddingHorizontal: 12, paddingVertical: 10, flexDirection: 'row', alignItems: 'center' },
-  searchInput: { flex: 1, color: Colors.textSecondary },
-  filterButton: { marginLeft: 10, backgroundColor: '#F5EDEB', padding: 10, borderRadius: 14, borderWidth: 1, borderColor: Colors.divider },
-  categoriesRow: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 18 },
-  card: { 
-    borderRadius: 14, 
-    height: 140, 
-    width: (width - 48) / 2,
-    position: 'relative',
-    overflow: 'hidden'
+  container: {
+    flex: 1,
+    backgroundColor: Colors.background,
   },
-  cardLarge: {},
+  contentContainer: {
+    paddingBottom: 110,
+  },
+  topSection: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    paddingTop: 50,
+    paddingBottom: 20,
+  },
+  menuButton: {
+    marginRight: 15,
+  },
+  greetingContainer: {
+    flex: 1,
+  },
+  greeting: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: Colors.primary,
+    marginBottom: 5,
+  },
+  welcomeText: {
+    fontSize: 14,
+    color: Colors.textSecondary,
+  },
+  starIcon: {
+    marginLeft: 10,
+  },
+  section: {
+    paddingHorizontal: 20,
+    marginBottom: 30,
+  },
+  sectionHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 15,
+  },
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: Colors.black,
+    marginLeft: 8,
+  },
+  searchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  searchBar: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: Colors.background,
+    borderRadius: 10,
+    paddingHorizontal: 15,
+    paddingVertical: 12,
+    borderWidth: 1,
+    borderColor: Colors.divider,
+    marginRight: 10,
+  },
+  searchIcon: {
+    marginRight: 10,
+  },
+  searchInput: {
+    flex: 1,
+    fontSize: 16,
+    color: Colors.black,
+  },
+  searchButton: {
+    backgroundColor: Colors.primary,
+    paddingVertical: 12,
+    paddingHorizontal: 25,
+    borderRadius: 10,
+  },
+  searchButtonText: {
+    color: Colors.white,
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  categoriesContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  categoryCard: {
+    width: '48%',
+    height: 200,
+  },
   categoryImage: {
+    flex: 1,
+    borderRadius: 15,
+    overflow: 'hidden',
+    position: 'relative',
+    backgroundColor: Colors.gray,
+  },
+  categoryPhoto: {
     width: '100%',
     height: '100%',
     position: 'absolute',
+    left: 0,
+    top: 0,
   },
   categoryOverlay: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: 'rgba(0,0,0,0.4)',
-    padding: 12,
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
   },
-  cardTitle: { color: Colors.white, fontSize: 16, fontWeight: '700' },
-  sectionTitle: { fontSize: 16, fontWeight: '700', color: Colors.primary, marginBottom: 8 },
-  tagsRow: { flexDirection: 'row', flexWrap: 'wrap', marginBottom: 12 },
-  tag: { backgroundColor: '#EFE7E2', paddingHorizontal: 10, paddingVertical: 6, borderRadius: 12, marginRight: 8, marginBottom: 8 },
-  tagText: { color: Colors.textSecondary, fontSize: 12 },
-  grid: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' },
-  spaceCard: { width: (width - 48) / 2, marginBottom: 16 },
-  spaceImage: { height: 140, borderRadius: 12, marginBottom: 8 },
-  spaceName: { color: Colors.black, fontSize: 14 },
-  bottomNav: { position: 'absolute', left: 0, right: 0, bottom: 0, height: 70, backgroundColor: Colors.background, borderTopWidth: 1, borderTopColor: Colors.divider, flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', paddingBottom: 8 },
-  navItem: { alignItems: 'center' },
-  navText: { fontSize: 11, marginTop: 4, color: Colors.textSecondary },
+  categoryText: {
+    position: 'absolute',
+    bottom: 15,
+    left: 15,
+    color: Colors.white,
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  topSpacesContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  spaceCard: {
+    alignItems: 'center',
+    width: '30%',
+  },
+  spaceImage: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    marginBottom: 10,
+    backgroundColor: Colors.gray,
+    overflow: 'hidden',
+    position: 'relative',
+  },
+  spacePhoto: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    left: 0,
+    top: 0,
+  },
+  spaceImage1: {
+    backgroundColor: '#8B0000', // Dark red
+  },
+  spaceImage2: {
+    backgroundColor: '#4A4A4A', // Dark gray
+  },
+  spaceImage3: {
+    backgroundColor: '#6B7B8C', // Grayish blue
+  },
+  spaceOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0, 0, 0, 0.2)',
+  },
+  spaceName: {
+    fontSize: 12,
+    color: Colors.black,
+    textAlign: 'center',
+    fontWeight: '500',
+  },
 });
 
 export default HomeScreen;
+
+
 

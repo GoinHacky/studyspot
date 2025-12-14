@@ -9,17 +9,21 @@ import { enableScreens } from 'react-native-screens';
 // Enable screens for better performance
 enableScreens();
 
-import LoadingScreen from './screens/LoadingScreen';
 import LandingScreen from './screens/LandingScreen';
 import LoginScreen from './screens/LoginScreen';
 import SignUpScreen from './screens/SignUpScreen';
 import MainTabScreen from './screens/MainTabScreen';
 import AdminDashboardScreen from './screens/AdminDashboardScreen';
+import AdminCafesScreen from './screens/AdminCafesScreen';
 import AdminBookingsScreen from './screens/AdminBookingsScreen';
-import ProfileScreen from './screens/ProfileScreen';
+import AdminUsersScreen from './screens/AdminUsersScreen';
+import AdminAnalyticsScreen from './screens/AdminAnalyticsScreen';
+import VendorDashboardScreen from './screens/VendorDashboardScreen';
+import VendorAddBookingScreen from './screens/VendorAddBookingScreen';
+import VendorCalendarScreen from './screens/VendorCalendarScreen';
+import VendorSettingsScreen from './screens/VendorSettingsScreen';
 
 const Stack = createNativeStackNavigator();
-// HomeDrawer removed — we will use HomeScreen directly in the stack to prevent Drawer from mounting
 
 export default function App() {
     return (
@@ -27,19 +31,24 @@ export default function App() {
             <NavigationContainer>
                 <StatusBar style="dark" />
                 <Stack.Navigator
-                    initialRouteName="Loading"
+                    initialRouteName="Landing"
                     screenOptions={{
                         headerShown: false,
                     }}
                 >
-                    <Stack.Screen name="Loading" component={LoadingScreen} />
                     <Stack.Screen name="Landing" component={LandingScreen} />
                     <Stack.Screen name="Login" component={LoginScreen} />
                     <Stack.Screen name="SignUp" component={SignUpScreen} />
                     <Stack.Screen name="Home" component={MainTabScreen} />
-                    <Stack.Screen name="Profile" component={ProfileScreen} />
                     <Stack.Screen name="AdminDashboard" component={AdminDashboardScreen} />
+                    <Stack.Screen name="AdminCafes" component={AdminCafesScreen} />
                     <Stack.Screen name="AdminBookings" component={AdminBookingsScreen} />
+                    <Stack.Screen name="AdminUsers" component={AdminUsersScreen} />
+                    <Stack.Screen name="AdminAnalytics" component={AdminAnalyticsScreen} />
+                    <Stack.Screen name="VendorDashboard" component={VendorDashboardScreen} />
+                    <Stack.Screen name="VendorAddBooking" component={VendorAddBookingScreen} />
+                    <Stack.Screen name="VendorCalendar" component={VendorCalendarScreen} />
+                    <Stack.Screen name="VendorSettings" component={VendorSettingsScreen} />
                 </Stack.Navigator>
             </NavigationContainer>
         </GestureHandlerRootView>

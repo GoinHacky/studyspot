@@ -3,24 +3,28 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-nati
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../constants/Colors';
 
-const SettingScreen = ({ navigation }) => {
+const VendorSettingsScreen = ({ navigation }) => {
   const items = [
-    { id: 1, title: 'Profile', subtitle: 'View and edit your profile', icon: 'person-outline', onPress: () => navigation.navigate('Profile') },
-    { id: 2, title: 'Payment Methods', subtitle: 'Manage your cards', icon: 'card-outline' },
-    { id: 3, title: 'Notifications', subtitle: 'Choose what you get notified about', icon: 'notifications-outline' },
-    { id: 4, title: 'Help & Support', subtitle: 'Contact us', icon: 'help-circle-outline' },
-    { id: 5, title: 'About', subtitle: 'Version and legal', icon: 'information-circle-outline' },
+    { id: 1, title: 'Cafe Profile', subtitle: 'Edit cafe details and photos', icon: 'storefront-outline' },
+    { id: 2, title: 'Booking Rules', subtitle: 'Set capacity and policies', icon: 'calendar-outline' },
+    { id: 3, title: 'Payouts', subtitle: 'Bank info and payout schedule', icon: 'card-outline' },
+    { id: 4, title: 'Notifications', subtitle: 'Email/SMS/Push settings', icon: 'notifications-outline' },
+    { id: 5, title: 'Support', subtitle: 'Contact help center', icon: 'help-circle-outline' },
   ];
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
+        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+          <Ionicons name="arrow-back" size={24} color={Colors.text} />
+        </TouchableOpacity>
         <Text style={styles.headerTitle}>Settings</Text>
+        <View style={styles.headerRight} />
       </View>
 
       <ScrollView style={styles.scrollView} contentContainerStyle={styles.contentContainer}>
         {items.map((it) => (
-          <TouchableOpacity key={it.id} style={styles.item} onPress={it.onPress}>
+          <TouchableOpacity key={it.id} style={styles.item}>
             <View style={styles.itemLeft}>
               <View style={styles.iconWrap}>
                 <Ionicons name={it.icon} size={20} color={Colors.primary} />
@@ -49,24 +53,35 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.background,
   },
   header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 16,
     paddingTop: 50,
-    paddingBottom: 14,
-    paddingHorizontal: 20,
+    paddingBottom: 16,
     backgroundColor: 'white',
-    borderBottomWidth: 1,
-    borderBottomColor: Colors.divider,
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 3.84,
+  },
+  backButton: {
+    padding: 8,
   },
   headerTitle: {
     fontSize: 20,
-    fontWeight: '800',
+    fontWeight: '700',
     color: Colors.text,
+  },
+  headerRight: {
+    width: 40,
   },
   scrollView: {
     flex: 1,
   },
   contentContainer: {
     padding: 16,
-    paddingBottom: 24,
   },
   item: {
     flexDirection: 'row',
@@ -130,4 +145,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SettingScreen;
+export default VendorSettingsScreen;

@@ -2,8 +2,11 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../constants/Colors';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const BottomNavigation = ({ navigation, activeTab }) => {
+  const insets = useSafeAreaInsets();
+  const bottomOffset = (insets?.bottom ?? 0) + 8;
   const navItems = [
     { 
       id: 'home', 
@@ -35,6 +38,12 @@ const BottomNavigation = ({ navigation, activeTab }) => {
       icon: 'settings', 
       screen: 'Settings' 
     },
+    { 
+      id: 'profile', 
+      label: 'Profile', 
+      icon: 'person', 
+      screen: 'Profile' 
+    },
   ];
 
   const handleNavPress = (item) => {
@@ -44,7 +53,7 @@ const BottomNavigation = ({ navigation, activeTab }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { bottom: bottomOffset }]}>
       {navItems.map((item) => {
         const isActive = activeTab === item.id;
         return (
@@ -55,7 +64,7 @@ const BottomNavigation = ({ navigation, activeTab }) => {
           >
             <Ionicons
               name={isActive ? item.icon : `${item.icon}-outline`}
-              size={24}
+              size={22}
               color={isActive ? Colors.primary : Colors.textSecondary}
             />
             <Text style={[
@@ -77,15 +86,15 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    height: 80,
+    height: 74,
     backgroundColor: 'white',
     borderTopWidth: 1,
     borderTopColor: Colors.divider,
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    paddingBottom: 10,
-    paddingTop: 10,
+    paddingBottom: 8,
+    paddingTop: 6,
     elevation: 8,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: -2 },
@@ -97,8 +106,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   navText: {
-    fontSize: 11,
-    marginTop: 4,
+    fontSize: 10,
+    marginTop: 2,
     fontWeight: '500',
   },
 });

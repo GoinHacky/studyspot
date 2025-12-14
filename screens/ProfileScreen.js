@@ -12,7 +12,7 @@ import {
 import { Colors } from '../constants/Colors';
 import { Ionicons } from '@expo/vector-icons';
 
-export default function ProfileScreen({ navigation }) {
+export default function ProfileScreen({ navigation, isTab }) {
   const [isEditing, setIsEditing] = useState(false);
   const [userInfo, setUserInfo] = useState({
     name: 'Francine Rodriguez',
@@ -60,9 +60,13 @@ export default function ProfileScreen({ navigation }) {
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-          <Ionicons name="arrow-back" size={24} color={Colors.text} />
-        </TouchableOpacity>
+        {isTab ? (
+          <View style={styles.backButton} />
+        ) : (
+          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+            <Ionicons name="arrow-back" size={24} color={Colors.text} />
+          </TouchableOpacity>
+        )}
         <Text style={styles.headerTitle}>Profile</Text>
         <TouchableOpacity 
           onPress={isEditing ? handleSave : () => setIsEditing(true)}

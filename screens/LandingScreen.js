@@ -52,6 +52,14 @@ const LandingScreen = ({ navigation }) => {
       >
         <Text style={styles.adminButtonText}>Admin Access</Text>
       </TouchableOpacity>
+
+      {/* Vendor Access */}
+      <TouchableOpacity
+        style={styles.vendorButton}
+        onPress={() => navigation.navigate('VendorDashboard')}
+      >
+        <Text style={styles.vendorButtonText}>Vendor Access</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -134,9 +142,25 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     textAlign: 'center',
   },
+  vendorButton: {
+    marginTop: 12,
+    paddingVertical: 12,
+    paddingHorizontal: 30,
+    borderRadius: 25,
+    borderWidth: 2,
+    borderColor: Colors.primary,
+    backgroundColor: 'transparent',
+  },
+  vendorButtonText: {
+    color: Colors.primary,
+    fontSize: 16,
+    fontWeight: '600',
+    textAlign: 'center',
+  },
 });
 
 export default LandingScreen;
+
 
 
 

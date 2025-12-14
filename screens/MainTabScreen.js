@@ -9,6 +9,7 @@ import DiscoveryScreen from './DiscoveryScreen';
 import StarredScreen from './StarredScreen';
 import BookingScreen from './BookingScreen';
 import SettingScreen from './SettingScreen';
+import ProfileScreen from './ProfileScreen';
 
 const MainTabScreen = ({ navigation }) => {
   const [activeTab, setActiveTab] = useState('home');
@@ -25,6 +26,8 @@ const MainTabScreen = ({ navigation }) => {
         return <BookingScreen navigation={navigation} />;
       case 'settings':
         return <SettingScreen navigation={navigation} />;
+      case 'profile':
+        return <ProfileScreen navigation={navigation} isTab />;
       default:
         return <HomeScreen navigation={navigation} />;
     }
@@ -39,6 +42,7 @@ const MainTabScreen = ({ navigation }) => {
         'Starred': 'starred',
         'Booking': 'booking',
         'Settings': 'settings',
+        'Profile': 'profile',
       };
       
       if (tabMap[screenName]) {
@@ -70,6 +74,7 @@ const styles = StyleSheet.create({
   },
   screenContainer: {
     flex: 1,
+    paddingBottom: 120,
   },
 });
 

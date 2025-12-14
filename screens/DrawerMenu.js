@@ -46,7 +46,28 @@ const DrawerMenu = ({ navigation }) => {
         {/* Divider */}
         <View style={styles.divider} />
 
-        {/* Menu Items */}
+        {/* Admin Section - Only show if user is admin */}
+        <Text style={styles.sectionHeader}>Admin</Text>
+        <TouchableOpacity 
+          style={styles.menuItem}
+          onPress={() => navigation.navigate('AdminUsers')}
+        >
+          <Ionicons name="people" size={24} color={Colors.black} />
+          <Text style={styles.menuItemText}>User Management</Text>
+        </TouchableOpacity>
+
+        {/* Vendor Section - Only show if user is a vendor */}
+        <Text style={styles.sectionHeader}>Vendor</Text>
+        <TouchableOpacity 
+          style={styles.menuItem}
+          onPress={() => navigation.navigate('VendorDashboard')}
+        >
+          <Ionicons name="storefront" size={24} color={Colors.black} />
+          <Text style={styles.menuItemText}>Vendor Dashboard</Text>
+        </TouchableOpacity>
+
+        {/* User Section */}
+        <Text style={styles.sectionHeader}>My Account</Text>
         <TouchableOpacity 
           style={styles.menuItem}
           onPress={() => navigation.navigate('Profile')}
@@ -101,6 +122,16 @@ const DrawerMenu = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  sectionHeader: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: Colors.textSecondary,
+    paddingHorizontal: 20,
+    paddingTop: 20,
+    paddingBottom: 8,
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+  },
   container: {
     flex: 1,
     backgroundColor: Colors.background,
@@ -171,6 +202,7 @@ const styles = StyleSheet.create({
 });
 
 export default DrawerMenu;
+
 
 
 

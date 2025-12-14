@@ -1,197 +1,84 @@
-import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-  TextInput,
-  Alert,
-  Image,
-} from 'react-native';
-import { Colors } from '../constants/Colors';
+import React from 'react';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { Colors } from '../constants/Colors';
 
-export default function BookingScreen({ navigation }) {
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [selectedTime, setSelectedTime] = useState(null);
-  const [selectedSeats, setSelectedSeats] = useState(1);
-  const [customerName, setCustomerName] = useState('');
-  const [customerPhone, setCustomerPhone] = useState('');
-  const [selectedCafe, setSelectedCafe] = useState("Red's Cafe");
-
-  const dates = [
-    { id: 1, day: 'Mon', date: '15', available: true },
-    { id: 2, day: 'Tue', date: '16', available: true },
-    { id: 3, day: 'Wed', date: '17', available: false },
-    { id: 4, day: 'Thu', date: '18', available: true },
-    { id: 5, day: 'Fri', date: '19', available: true },
+const BookingScreen = () => {
+  const bookings = [
+    {
+      id: 1,
+      cafe: "Red's Café",
+      date: 'Dec 12, 2025',
+      time: '10:30 AM',
+      seats: 2,
+      status: 'Confirmed',
+      image: 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=400&h=300&fit=crop',
+    },
+    {
+      id: 2,
+      cafe: 'Bean Awake',
+      date: 'Dec 13, 2025',
+      time: '2:00 PM',
+      seats: 1,
+      status: 'Pending',
+      image: 'https://images.unsplash.com/photo-1559925393-8be0ec4767c8?w=400&h=300&fit=crop',
+    },
+    {
+      id: 3,
+      cafe: 'Misfits Coffee',
+      date: 'Dec 15, 2025',
+      time: '4:15 PM',
+      seats: 4,
+      status: 'Completed',
+      image: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=400&h=300&fit=crop',
+    },
   ];
 
-  const timeSlots = [
-    { id: 1, time: '9:00 AM', available: true },
-    { id: 2, time: '10:00 AM', available: true },
-    { id: 3, time: '11:00 AM', available: false },
-    { id: 4, time: '12:00 PM', available: true },
-    { id: 5, time: '1:00 PM', available: true },
-    { id: 6, time: '2:00 PM', available: true },
-    { id: 7, time: '3:00 PM', available: false },
-    { id: 8, time: '4:00 PM', available: true },
-  ];
-
-  const handleBooking = () => {
-    if (!selectedDate || !selectedTime || !customerName || !customerPhone) {
-      Alert.alert('Error', 'Please fill in all required fields');
-      return;
-    }
-    
-    Alert.alert(
-      'Booking Confirmed!',
-      `Your table for ${selectedSeats} at ${selectedCafe} has been booked for ${selectedDate.day}, ${selectedDate.date} at ${selectedTime.time}`,
-      [{ text: 'OK', onPress: () => navigation.goBack() }]
-    );
+  const getStatusStyle = (status) => {
+    if (status === 'Confirmed') return { bg: '#E8F5E9', fg: '#2E7D32' };
+    if (status === 'Pending') return { bg: '#FFF8E1', fg: '#F57F17' };
+    return { bg: '#E3F2FD', fg: '#1565C0' };
   };
 
   return (
     <View style={styles.container}>
-      {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-          <Ionicons name="arrow-back" size={24} color={Colors.text} />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>Book a Table</Text>
-        <View style={styles.placeholder} />
+        <Text style={styles.headerTitle}>Booking</Text>
       </View>
 
       <ScrollView style={styles.scrollView} contentContainerStyle={styles.contentContainer}>
-        {/* Cafe Selection */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Select Cafe</Text>
-          <TouchableOpacity style={styles.cafeSelector}>
-            <View style={styles.cafeInfo}>
-              <Image 
-                source={{ uri: 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=100&h=100&fit=crop' }}
-                style={styles.cafeImage}
-                resizeMode="cover"
-              />
-              <View>
-                <Text style={styles.cafeName}>{selectedCafe}</Text>
-                <Text style={styles.cafeLocation}>Cebu City</Text>
+        {bookings.map((b) => {
+          const st = getStatusStyle(b.status);
+          return (
+            <View key={b.id} style={styles.card}>
+              <Image source={{ uri: b.image }} style={styles.image} resizeMode="cover" />
+              <View style={styles.cardBody}>
+                <View style={styles.topRow}>
+                  <Text style={styles.cafeName}>{b.cafe}</Text>
+                  <View style={[styles.statusPill, { backgroundColor: st.bg }]}>
+                    <Text style={[styles.statusText, { color: st.fg }]}>{b.status}</Text>
+                  </View>
+                </View>
+                <View style={styles.metaRow}>
+                  <Ionicons name="calendar-outline" size={16} color={Colors.textSecondary} />
+                  <Text style={styles.metaText}>{b.date} • {b.time}</Text>
+                </View>
+                <View style={styles.metaRow}>
+                  <Ionicons name="people-outline" size={16} color={Colors.textSecondary} />
+                  <Text style={styles.metaText}>{b.seats} {b.seats === 1 ? 'seat' : 'seats'}</Text>
+                </View>
+
+                <TouchableOpacity style={styles.primaryButton}>
+                  <Text style={styles.primaryButtonText}>View Details</Text>
+                </TouchableOpacity>
               </View>
             </View>
-            <Ionicons name="chevron-down" size={20} color={Colors.textSecondary} />
-          </TouchableOpacity>
-        </View>
-
-        {/* Date Selection */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Select Date</Text>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.dateScroll}>
-            {dates.map((date) => (
-              <TouchableOpacity
-                key={date.id}
-                style={[
-                  styles.dateCard,
-                  selectedDate?.id === date.id && styles.selectedDateCard,
-                  !date.available && styles.unavailableDateCard,
-                ]}
-                onPress={() => date.available && setSelectedDate(date)}
-                disabled={!date.available}
-              >
-                <Text style={[
-                  styles.dayText,
-                  selectedDate?.id === date.id && styles.selectedText,
-                  !date.available && styles.unavailableText,
-                ]}>
-                  {date.day}
-                </Text>
-                <Text style={[
-                  styles.dateText,
-                  selectedDate?.id === date.id && styles.selectedText,
-                  !date.available && styles.unavailableText,
-                ]}>
-                  {date.date}
-                </Text>
-              </TouchableOpacity>
-            ))}
-          </ScrollView>
-        </View>
-
-        {/* Time Selection */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Select Time</Text>
-          <View style={styles.timeGrid}>
-            {timeSlots.map((slot) => (
-              <TouchableOpacity
-                key={slot.id}
-                style={[
-                  styles.timeSlot,
-                  selectedTime?.id === slot.id && styles.selectedTimeSlot,
-                  !slot.available && styles.unavailableTimeSlot,
-                ]}
-                onPress={() => slot.available && setSelectedTime(slot)}
-                disabled={!slot.available}
-              >
-                <Text style={[
-                  styles.timeText,
-                  selectedTime?.id === slot.id && styles.selectedText,
-                  !slot.available && styles.unavailableText,
-                ]}>
-                  {slot.time}
-                </Text>
-              </TouchableOpacity>
-            ))}
-          </View>
-        </View>
-
-        {/* Number of Seats */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Number of Seats</Text>
-          <View style={styles.seatSelector}>
-            <TouchableOpacity
-              style={styles.seatButton}
-              onPress={() => setSelectedSeats(Math.max(1, selectedSeats - 1))}
-            >
-              <Ionicons name="remove" size={20} color={Colors.primary} />
-            </TouchableOpacity>
-            <Text style={styles.seatCount}>{selectedSeats}</Text>
-            <TouchableOpacity
-              style={styles.seatButton}
-              onPress={() => setSelectedSeats(Math.min(8, selectedSeats + 1))}
-            >
-              <Ionicons name="add" size={20} color={Colors.primary} />
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        {/* Customer Information */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Your Information</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Full Name"
-            placeholderTextColor={Colors.placeholder}
-            value={customerName}
-            onChangeText={setCustomerName}
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="Phone Number"
-            placeholderTextColor={Colors.placeholder}
-            value={customerPhone}
-            onChangeText={setCustomerPhone}
-            keyboardType="phone-pad"
-          />
-        </View>
-
-        {/* Book Button */}
-        <TouchableOpacity style={styles.bookButton} onPress={handleBooking}>
-          <Text style={styles.bookButtonText}>Book Table</Text>
-        </TouchableOpacity>
+          );
+        })}
       </ScrollView>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -199,194 +86,88 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.background,
   },
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 16,
     paddingTop: 50,
-    paddingBottom: 16,
-    backgroundColor: Colors.background,
-  },
-  backButton: {
-    padding: 8,
+    paddingBottom: 14,
+    paddingHorizontal: 20,
+    backgroundColor: 'white',
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.divider,
   },
   headerTitle: {
     fontSize: 20,
-    fontWeight: '600',
+    fontWeight: '800',
     color: Colors.text,
-  },
-  placeholder: {
-    width: 40,
   },
   scrollView: {
     flex: 1,
   },
   contentContainer: {
     padding: 16,
-    paddingBottom: 100,
+    paddingBottom: 24,
   },
-  section: {
-    marginBottom: 24,
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: Colors.text,
-    marginBottom: 12,
-  },
-  cafeSelector: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+  card: {
     backgroundColor: 'white',
-    padding: 16,
-    borderRadius: 12,
+    borderRadius: 16,
+    overflow: 'hidden',
+    marginBottom: 12,
     elevation: 2,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.22,
-    shadowRadius: 2.22,
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
   },
-  cafeInfo: {
+  image: {
+    width: '100%',
+    height: 140,
+  },
+  cardBody: {
+    padding: 14,
+  },
+  topRow: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
-  },
-  cafeImage: {
-    width: 50,
-    height: 50,
-    borderRadius: 8,
-    marginRight: 12,
+    marginBottom: 10,
   },
   cafeName: {
+    flex: 1,
+    paddingRight: 10,
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: '900',
     color: Colors.text,
   },
-  cafeLocation: {
-    fontSize: 14,
-    color: Colors.textSecondary,
-    marginTop: 2,
+  statusPill: {
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: 999,
   },
-  dateScroll: {
-    marginHorizontal: -4,
-  },
-  dateCard: {
-    alignItems: 'center',
-    backgroundColor: 'white',
-    padding: 16,
-    borderRadius: 12,
-    marginHorizontal: 4,
-    minWidth: 70,
-    elevation: 2,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.22,
-    shadowRadius: 2.22,
-  },
-  selectedDateCard: {
-    backgroundColor: Colors.primary,
-  },
-  unavailableDateCard: {
-    backgroundColor: Colors.gray,
-    opacity: 0.5,
-  },
-  dayText: {
+  statusText: {
     fontSize: 12,
-    color: Colors.textSecondary,
-    marginBottom: 4,
+    fontWeight: '800',
   },
-  dateText: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: Colors.text,
-  },
-  selectedText: {
-    color: 'white',
-  },
-  unavailableText: {
-    color: Colors.textSecondary,
-  },
-  timeGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-  },
-  timeSlot: {
-    width: '48%',
-    backgroundColor: 'white',
-    padding: 16,
-    borderRadius: 12,
-    alignItems: 'center',
-    marginBottom: 8,
-    elevation: 2,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.22,
-    shadowRadius: 2.22,
-  },
-  selectedTimeSlot: {
-    backgroundColor: Colors.primary,
-  },
-  unavailableTimeSlot: {
-    backgroundColor: Colors.gray,
-    opacity: 0.5,
-  },
-  timeText: {
-    fontSize: 16,
-    fontWeight: '500',
-    color: Colors.text,
-  },
-  seatSelector: {
+  metaRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'white',
-    padding: 16,
-    borderRadius: 12,
-    elevation: 2,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.22,
-    shadowRadius: 2.22,
+    marginBottom: 6,
   },
-  seatButton: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    backgroundColor: Colors.background,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  seatCount: {
-    fontSize: 24,
+  metaText: {
+    marginLeft: 8,
+    fontSize: 13,
     fontWeight: '600',
-    color: Colors.text,
-    marginHorizontal: 32,
+    color: Colors.textSecondary,
   },
-  input: {
-    backgroundColor: 'white',
-    padding: 16,
-    borderRadius: 12,
-    marginBottom: 12,
-    fontSize: 16,
-    color: Colors.text,
-    elevation: 2,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.22,
-    shadowRadius: 2.22,
-  },
-  bookButton: {
+  primaryButton: {
+    marginTop: 12,
     backgroundColor: Colors.primary,
-    padding: 18,
-    borderRadius: 12,
+    borderRadius: 14,
+    paddingVertical: 12,
     alignItems: 'center',
-    marginTop: 16,
   },
-  bookButtonText: {
+  primaryButtonText: {
     color: 'white',
-    fontSize: 18,
-    fontWeight: '600',
+    fontSize: 14,
+    fontWeight: '900',
   },
 });
 
+export default BookingScreen;

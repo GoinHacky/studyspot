@@ -138,7 +138,12 @@ const AdminBookingsScreen = ({ navigation }) => {
       </View>
 
       {/* Filter Tabs */}
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.filterContainer}>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        style={styles.filterContainer}
+        contentContainerStyle={styles.filterContent}
+      >
         {filters.map((filter) => (
           <TouchableOpacity
             key={filter.id}
@@ -282,24 +287,30 @@ const styles = StyleSheet.create({
     color: Colors.text,
   },
   filterContainer: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
     backgroundColor: 'white',
     borderBottomWidth: 1,
     borderBottomColor: Colors.divider,
+    maxHeight: 56,
+  },
+  filterContent: {
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    alignItems: 'center',
   },
   filterTab: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    marginRight: 12,
-    borderRadius: 20,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    marginRight: 10,
+    borderRadius: 14,
     backgroundColor: Colors.background,
+    minHeight: 34,
+    justifyContent: 'center',
   },
   activeFilterTab: {
     backgroundColor: Colors.primary,
   },
   filterText: {
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: '500',
     color: Colors.textSecondary,
   },

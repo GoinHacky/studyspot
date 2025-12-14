@@ -75,7 +75,13 @@ const AdminDashboardScreen = ({ navigation }) => {
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <View>
+        <TouchableOpacity
+          onPress={() => navigation.popToTop()}
+          style={styles.backButton}
+        >
+          <Ionicons name="arrow-back" size={24} color={Colors.primary} />
+        </TouchableOpacity>
+        <View style={styles.headerTextContainer}>
           <Text style={styles.headerTitle}>Admin Dashboard</Text>
           <Text style={styles.headerSubtitle}>Welcome back, Admin</Text>
         </View>
@@ -153,7 +159,10 @@ const AdminDashboardScreen = ({ navigation }) => {
               <Ionicons name="people" size={32} color={Colors.primary} />
               <Text style={styles.actionText}>User Management</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.actionCard}>
+            <TouchableOpacity 
+              style={styles.actionCard}
+              onPress={() => navigation.navigate('AdminAnalytics')}
+            >
               <Ionicons name="analytics" size={32} color={Colors.primary} />
               <Text style={styles.actionText}>Analytics</Text>
             </TouchableOpacity>
@@ -219,6 +228,13 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 3.84,
+  },
+  backButton: {
+    padding: 8,
+  },
+  headerTextContainer: {
+    flex: 1,
+    marginLeft: 8,
   },
   headerTitle: {
     fontSize: 24,
